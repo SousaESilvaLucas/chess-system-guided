@@ -1,6 +1,7 @@
 package chess;
 
 import boardgame.Board;
+import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.King;
 import chess.pieces.Rook;
@@ -30,6 +31,50 @@ public class ChessMatch {
 		board.placePiece(chessPiece, chessPosition.toPosition());
 	}
 	
+	private void placeNewPiece(ChessPiece chessPiece, ChessPosition chessPosition) {
+		board.placePiece(chessPiece, chessPosition.toPosition());
+	}
+	
+	public void removeChessPiece(char column, int row) {
+		ChessPosition chessPosition = new ChessPosition(column, row);
+		board.removePiece(chessPosition.toPosition());
+	}
+	
+	public void removeChessPiece(ChessPosition chessPosition) {
+		board.removePiece(chessPosition.toPosition());
+	}
+	
+	public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
+		
+		Position source = sourcePosition.toPosition();
+		Position target = targetPosition.toPosition();
+		
+		/* First step: Check if sourcePosition and targetPosition exists */
+		validateSourcePosition(source);
+		/* Second step: Check if chessPiece is in sourcePosition */
+		/* Third step: Check if the target position can be occupied (i.e.
+		 * Checks if it is not occupied or if it is, if chessPiece can capture the piece */
+		
+		/* Fourth step: remove sourcePiece from sourcePosition, 
+		 * remove targetPiece from targetPosition, add chessPiece to targetPosition */
+		Piece capturedPiece = makeMove(source, target);
+		/* Fifth step: Update chessPiece position */
+		
+		/* Sixth step: Return targetPiece (if there was a captured piece)*/
+		return (ChessPiece) capturedPiece;
+	}
+	
+	private Piece makeMove(Position sourcePosition, Position targetPosition) {
+		Piece p = board.removePiece(sourcePosition);
+		Piece capturedPiece = board.removePiece(targetPosition);
+		board.placePiece(p, targetPosition);
+		return capturedPiece;
+	}
+	private void validateSourcePosition(Position position) {
+		if (!board.isThereAPiece(position)) {
+			throw new ChessException("There's no chess piece at source position");
+		}
+	}
 	private void initialSetup() {
 		placeNewPiece(new King(board, Color.WHITE), 'e', 1);
 		placeNewPiece(new Rook(board, Color.WHITE), 'a', 1);

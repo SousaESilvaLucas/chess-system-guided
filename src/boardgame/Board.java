@@ -72,10 +72,25 @@ public class Board {
 					+ "This board position doesn't exist!");
 		}
 		else {
-			return piece(position) != null;
+			return piece(position) != null;  
 		}
 		
 	}
 	
-	
+	public Piece removePiece(Position position) {
+		if (!positionExists(position)) {
+			throw new BoardException("Error:"
+					+ "This board position doesn't exist!");
+		}
+		
+		else if (!isThereAPiece(position)) {
+			return null;
+		}
+		else {
+			Piece aux =  pieces[position.getRow()][position.getColumn()];
+			pieces[position.getRow()][position.getColumn()] = null;
+			return aux;
+		}
+
+	}
 }
