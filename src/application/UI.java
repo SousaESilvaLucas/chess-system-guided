@@ -41,7 +41,6 @@ public class UI {
 			throw new InputMismatchException("Invalid Input. The input must "
 					+ "be a value from a1 to h8");
 		}
-		
 	}
 	
 	public static void printBoard(ChessPiece[][] mat) {
@@ -71,5 +70,10 @@ public class UI {
 		}
 		
 		System.out.print(" ");
+	}
+	
+	public static void clearScreen() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
 	}
 }
