@@ -38,9 +38,12 @@ public class ChessMatch {
 		
 		/* First step: Check if sourcePosition and targetPosition exists */
 		validateSourcePosition(source);
+		
 		/* Second step: Check if chessPiece is in sourcePosition */
+		
 		/* Third step: Check if the target position can be occupied (i.e.
 		 * Checks if it is not occupied or if it is, if chessPiece can capture the piece */
+		validateTargetPosition (target, board.piece(source));
 		
 		/* Fourth step: remove sourcePiece from sourcePosition, 
 		 * remove targetPiece from targetPosition, add chessPiece to targetPosition */
@@ -64,6 +67,14 @@ public class ChessMatch {
 		
 		if (!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("There are no possible moves for the chosen piece.");
+		}
+	}
+	
+	
+	private void validateTargetPosition (Position position, Piece piece) {
+		boolean [][] mat = piece.possibleMoves();
+		if (!mat[position.getRow()][position.getColumn()]) {
+			throw new ChessException("Illegal move");
 		}
 	}
 	private void initialSetup() {
