@@ -70,6 +70,11 @@ public class ChessMatch {
 		}
 	}
 	
+	public boolean[][] possibleMoves(ChessPosition sourcePosition){
+		Position source = sourcePosition.toPosition();
+		validateSourcePosition(source);
+		return board.piece(source).possibleMoves();
+	}
 	
 	private void validateTargetPosition (Position position, Piece piece) {
 		boolean [][] mat = piece.possibleMoves();
