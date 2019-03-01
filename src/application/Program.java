@@ -30,6 +30,9 @@ public class Program {
 				ChessPosition target = UI.readChessPosition(sc);
 				
 				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+				// if (capturedPiece != null) {
+				//	chessMatch.addCapturedPiece(capturedPiece);
+				//}
 			} 
 			catch (ChessException e) {
 				// TODO Auto-generated catch block
