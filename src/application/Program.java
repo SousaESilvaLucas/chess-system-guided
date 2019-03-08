@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import chess.ChessException;
 import chess.ChessMatch;
-import chess.ChessPiece;
 import chess.ChessPosition;
 
 public class Program {
@@ -14,7 +13,7 @@ public class Program {
 		Scanner sc = new Scanner(System.in);
 		ChessMatch chessMatch = new ChessMatch();
 		
-		while(true) {
+		while(!chessMatch.getCheckMate()) {
 			try {
 				UI.clearScreen();
 				UI.printMatch(chessMatch);
@@ -29,10 +28,8 @@ public class Program {
 				System.out.print("Target: ");
 				ChessPosition target = UI.readChessPosition(sc);
 				
-				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
-				// if (capturedPiece != null) {
-				//	chessMatch.addCapturedPiece(capturedPiece);
-				//}
+				chessMatch.performChessMove(source, target);
+
 			} 
 			catch (ChessException e) {
 				// TODO Auto-generated catch block
@@ -47,6 +44,9 @@ public class Program {
 				sc.nextLine();
 			}
 		}
+		
+		UI.clearScreen();
+		UI.printMatch(chessMatch);
 
 	}
 
